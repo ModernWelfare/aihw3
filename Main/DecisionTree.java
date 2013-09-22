@@ -10,6 +10,7 @@ import util.FileReader;
 import util.Result;
 import AttributeValues.AttributeValue;
 import Attributes.Attribute;
+import Attributes.IsHorizontalThreeInARow;
 import Attributes.IsVerticalThreeInARow;
 import Attributes.IsWinner;
 
@@ -179,6 +180,7 @@ public class DecisionTree {
 
 		attributeList.add(new IsWinner());
 		attributeList.add(new IsVerticalThreeInARow());
+		attributeList.add(new IsHorizontalThreeInARow());
 
 		DecisionTreeNode root = dTree
 				.decisionTreeLearning(dTree.exampleCollection, attributeList,
