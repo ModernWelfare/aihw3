@@ -8,10 +8,13 @@ import AttributeValues.Affirmative;
 import AttributeValues.AttributeValue;
 import AttributeValues.Negative;
 
-public class IsHorizontalThreeInARow implements Attribute {
+public class IsHorizontalUnboundedThreeInARow implements Attribute {
 
 	private final AttributeValue affirm = new Affirmative();
 	private final AttributeValue nega = new Negative();
+	
+	private boolean leftUnbound = false;
+	private boolean rightUnbound = false;
 
 	@Override
 	public List<AttributeValue> getAttributeValues() {
@@ -23,7 +26,11 @@ public class IsHorizontalThreeInARow implements Attribute {
 
 	@Override
 	public int getImportance(List<Example> exampleCollection) {
-		return 17;
+		if(leftUnbound && rightUnbound) //unbounded both sides
+			return 18;
+		else if(leftUnbound || rightUnbound) //unbounded on one side
+			return 17;
+		else return 16; //should not happen, but as a precaution - not unbounded on either side
 	}
 
 	@Override
@@ -44,15 +51,26 @@ public class IsHorizontalThreeInARow implements Attribute {
 						if(e.getBoard().boardArray[i][j] == e.getBoard().boardArray[i][k]){
 							countOfTokensEncounteredHorizontally++;
 						}
-						else{ //since the continuity between tokens is broken, stop
-							break;
+						else{ 
+							if(countOfTokensEncounteredHorizontally == numTokensCountingFor){
+								int leftBound = k - numTokensCountingFor - 1;
+								int rightBound = k;
+								if(leftBound >= 0 &&  (e.getBoard().boardArray[i][leftBound] == 0))
+									leftUnbound = true;
+								if(rightBound < width && (e.getBoard().boardArray[i][rightBound] == 0))
+									rightUnbound = true;
+							}
+							else{
+								//since the continuity between tokens is broken, stop
+								break;
+							}
 						}
 					}
 				}
 			}
 		}
 		
-		if (countOfTokensEncounteredHorizontally >= numTokensCountingFor) {
+		if ((countOfTokensEncounteredHorizontally >= numTokensCountingFor) && (leftUnbound || rightUnbound)) {
 			return affirm;
 		} else {
 			return nega;

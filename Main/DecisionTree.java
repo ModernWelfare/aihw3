@@ -11,6 +11,7 @@ import util.Result;
 import AttributeValues.AttributeValue;
 import Attributes.Attribute;
 import Attributes.IsHorizontalThreeInARow;
+import Attributes.IsHorizontalUnboundedThreeInARow;
 import Attributes.IsVerticalThreeInARow;
 import Attributes.IsWinner;
 
@@ -180,7 +181,8 @@ public class DecisionTree {
 
 		attributeList.add(new IsWinner());
 		attributeList.add(new IsVerticalThreeInARow());
-		attributeList.add(new IsHorizontalThreeInARow());
+		attributeList.add(new IsHorizontalUnboundedThreeInARow());
+		
 
 		DecisionTreeNode root = dTree
 				.decisionTreeLearning(dTree.exampleCollection, attributeList,

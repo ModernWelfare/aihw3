@@ -23,7 +23,7 @@ public class IsVerticalThreeInARow implements Attribute {
 
 	@Override
 	public int getImportance(List<Example> exampleCollection) {
-		return 9;
+		return 19;
 	}
 
 	@Override

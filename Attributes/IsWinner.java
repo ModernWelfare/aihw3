@@ -23,7 +23,7 @@ public class IsWinner implements Attribute {
 
 	@Override
 	public int getImportance(List<Example> exampleCollection) {
-		return 10;
+		return 20;
 	}
 
 	@Override
