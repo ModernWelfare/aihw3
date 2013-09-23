@@ -10,11 +10,9 @@ import util.FileReader;
 import util.Result;
 import AttributeValues.AttributeValue;
 import Attributes.Attribute;
-import Attributes.IsDiagonalLeftThreeInARow;
-import Attributes.IsDiagonalRightThreeInARow;
-import Attributes.IsHorizontalThreeInARow;
-import Attributes.IsHorizontalUnboundedThreeInARow;
-import Attributes.IsVerticalThreeInARow;
+import Attributes.IsDominatingCenterOfBoard;
+import Attributes.IsHorizontalUnboundedThreeInARowWithOpponent;
+import Attributes.IsHorizontalUnboundedTwoInARowWithOpponent;
 import Attributes.IsVerticalUnboundedThreeInARow;
 
 /*******************************************************************************
@@ -186,13 +184,12 @@ public class DecisionTree {
 
 		List<Attribute> attributeList = new ArrayList<Attribute>();
 
-		// attributeList.add(new IsWinner());
 		attributeList.add(new IsVerticalUnboundedThreeInARow());
-		//attributeList.add(new IsVerticalThreeInARow());
-		attributeList.add(new IsHorizontalUnboundedThreeInARow());
-		//attributeList.add(new IsHorizontalThreeInARow());
-		attributeList.add(new IsDiagonalLeftThreeInARow());
-		attributeList.add(new IsDiagonalRightThreeInARow());
+		attributeList.add(new IsHorizontalUnboundedThreeInARowWithOpponent());
+		attributeList.add(new IsHorizontalUnboundedTwoInARowWithOpponent());
+		attributeList.add(new IsDominatingCenterOfBoard());
+		//attributeList.add(new IsDiagonalLeftThreeInARow());
+		//attributeList.add(new IsDiagonalRightThreeInARow());
 
 		DecisionTreeNode root = dTree
 				.decisionTreeLearning(dTree.exampleCollection, attributeList,
