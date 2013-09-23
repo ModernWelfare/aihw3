@@ -10,6 +10,8 @@ import util.FileReader;
 import util.Result;
 import AttributeValues.AttributeValue;
 import Attributes.Attribute;
+import Attributes.IsDiagonalLeftThreeInARow;
+import Attributes.IsDiagonalRightThreeInARow;
 import Attributes.IsDominatingCenterOfBoard;
 import Attributes.IsHorizontalUnboundedThreeInARowWithOpponent;
 import Attributes.IsHorizontalUnboundedTwoInARowWithOpponent;
@@ -184,12 +186,12 @@ public class DecisionTree {
 
 		List<Attribute> attributeList = new ArrayList<Attribute>();
 
-		attributeList.add(new IsVerticalUnboundedThreeInARow());
 		attributeList.add(new IsHorizontalUnboundedThreeInARowWithOpponent());
+		attributeList.add(new IsVerticalUnboundedThreeInARow());
 		attributeList.add(new IsHorizontalUnboundedTwoInARowWithOpponent());
 		attributeList.add(new IsDominatingCenterOfBoard());
-		//attributeList.add(new IsDiagonalLeftThreeInARow());
-		//attributeList.add(new IsDiagonalRightThreeInARow());
+		attributeList.add(new IsDiagonalLeftThreeInARow());
+		attributeList.add(new IsDiagonalRightThreeInARow());
 
 		DecisionTreeNode root = dTree
 				.decisionTreeLearning(dTree.exampleCollection, attributeList,
