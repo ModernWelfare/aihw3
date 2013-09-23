@@ -14,9 +14,9 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Board {
-	private final int boardArray[][];
-	private final int height;
-	private final int width;
+	public final int boardArray[][];
+	public final int height;
+	public final int width;
 
 	public Board(int height, int width) {
 		this.height = height;
