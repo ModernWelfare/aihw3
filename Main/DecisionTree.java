@@ -10,10 +10,8 @@ import util.FileReader;
 import util.Result;
 import AttributeValues.AttributeValue;
 import Attributes.Attribute;
-import Attributes.IsHorizontalThreeInARow;
 import Attributes.IsHorizontalUnboundedThreeInARow;
 import Attributes.IsVerticalThreeInARow;
-import Attributes.IsWinner;
 
 /*******************************************************************************
  * This files was developed for CS4341: Artificial Intelligence. The course was
@@ -107,6 +105,8 @@ public class DecisionTree {
 			double maxAttributeValue = Double.MIN_VALUE;
 			for (Attribute a : attributes) {
 				double importanceValue = a.getImportance(examples);
+				System.out.println("importance: " + importanceValue);
+				System.out.println("attribute: " + a);
 				if (importanceValue > maxAttributeValue) {
 					mostImportantAttribute = a;
 					maxAttributeValue = importanceValue;
@@ -114,7 +114,6 @@ public class DecisionTree {
 			}
 
 			DecisionTreeNode root = new DecisionTreeNode(mostImportantAttribute);
-
 			for (AttributeValue aValue : mostImportantAttribute
 					.getAttributeValues()) {
 				List<Example> filteredExamples = new ArrayList<Example>();
@@ -181,10 +180,9 @@ public class DecisionTree {
 
 		List<Attribute> attributeList = new ArrayList<Attribute>();
 
-		attributeList.add(new IsWinner());
+		// attributeList.add(new IsWinner());
 		attributeList.add(new IsVerticalThreeInARow());
 		attributeList.add(new IsHorizontalUnboundedThreeInARow());
-		
 
 		DecisionTreeNode root = dTree
 				.decisionTreeLearning(dTree.exampleCollection, attributeList,
