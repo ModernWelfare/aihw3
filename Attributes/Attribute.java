@@ -2,9 +2,8 @@ package Attributes;
 
 import java.util.List;
 
-import AttributeValues.AttributeValue;
-
 import util.Example;
+import AttributeValues.AttributeValue;
 
 /**
  * Interface for the attributes used to make decision trees
@@ -24,10 +23,12 @@ public interface Attribute {
 	/**
 	 * get the importance of this attribute in the example collection
 	 * 
+	 * Calculation of the importance is done using the binary entropy method
+	 * 
 	 * @param exampleCollection
-	 * @return
+	 * @return double value of the entropy deduction
 	 */
-	public int getImportance(List<Example> exampleCollection);
+	public double getImportance(List<Example> exampleCollection);
 
 	/**
 	 * get the value of the attribute in this example

@@ -101,10 +101,12 @@ public class DecisionTree {
 		} else if (attributes.isEmpty()) {
 			return new DecisionTreeNode(pluralityValue(examples));
 		} else {
-			int maxAttributeValue = Integer.MIN_VALUE;
+			double maxAttributeValue = Double.MIN_VALUE;
 			for (Attribute a : attributes) {
-				if (a.getImportance(examples) > maxAttributeValue) {
+				double importanceValue = a.getImportance(examples);
+				if (importanceValue > maxAttributeValue) {
 					mostImportantAttribute = a;
+					maxAttributeValue = importanceValue;
 				}
 			}
 
