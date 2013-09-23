@@ -10,6 +10,7 @@ import util.FileReader;
 import util.Result;
 import AttributeValues.AttributeValue;
 import Attributes.Attribute;
+import Attributes.IsHorizontalThreeInARow;
 import Attributes.IsHorizontalUnboundedThreeInARow;
 import Attributes.IsVerticalThreeInARow;
 
@@ -102,17 +103,19 @@ public class DecisionTree {
 		} else if (attributes.isEmpty()) {
 			return new DecisionTreeNode(pluralityValue(examples));
 		} else {
-			double maxAttributeValue = Double.MIN_VALUE;
+			double maxAttributeValue = 0.0;
 			for (Attribute a : attributes) {
 				double importanceValue = a.getImportance(examples);
+				System.out.println(examples);
 				System.out.println("importance: " + importanceValue);
 				System.out.println("attribute: " + a);
-				if (importanceValue > maxAttributeValue) {
+				if (importanceValue >= maxAttributeValue) {
 					mostImportantAttribute = a;
 					maxAttributeValue = importanceValue;
 				}
 			}
 
+			System.out.println(mostImportantAttribute);
 			DecisionTreeNode root = new DecisionTreeNode(mostImportantAttribute);
 			for (AttributeValue aValue : mostImportantAttribute
 					.getAttributeValues()) {
@@ -183,6 +186,7 @@ public class DecisionTree {
 		// attributeList.add(new IsWinner());
 		attributeList.add(new IsVerticalThreeInARow());
 		attributeList.add(new IsHorizontalUnboundedThreeInARow());
+		attributeList.add(new IsHorizontalThreeInARow());
 
 		DecisionTreeNode root = dTree
 				.decisionTreeLearning(dTree.exampleCollection, attributeList,

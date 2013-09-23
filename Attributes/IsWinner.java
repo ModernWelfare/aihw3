@@ -47,8 +47,8 @@ public class IsWinner implements Attribute {
 		for (ArrayList<Example> eList : exampleSplit) {
 			double subEntropy = getEntropy(eList);
 			entropyList.add(subEntropy);
-			sizeRatioList
-					.add((double) (eList.size() / exampleCollection.size()));
+			sizeRatioList.add((double) eList.size()
+					/ (double) exampleCollection.size());
 		}
 
 		for (int i = 0; i < aValueList.size(); i++) {
