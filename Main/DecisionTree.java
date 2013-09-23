@@ -13,6 +13,7 @@ import Attributes.Attribute;
 import Attributes.IsHorizontalThreeInARow;
 import Attributes.IsHorizontalUnboundedThreeInARow;
 import Attributes.IsVerticalThreeInARow;
+import Attributes.IsVerticalUnboundedThreeInARow;
 
 /*******************************************************************************
  * This files was developed for CS4341: Artificial Intelligence. The course was
@@ -184,6 +185,7 @@ public class DecisionTree {
 		List<Attribute> attributeList = new ArrayList<Attribute>();
 
 		// attributeList.add(new IsWinner());
+		attributeList.add(new IsVerticalUnboundedThreeInARow());
 		attributeList.add(new IsVerticalThreeInARow());
 		attributeList.add(new IsHorizontalUnboundedThreeInARow());
 		attributeList.add(new IsHorizontalThreeInARow());
