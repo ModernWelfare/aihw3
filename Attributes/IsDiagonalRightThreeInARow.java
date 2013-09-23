@@ -24,17 +24,31 @@ public class IsDiagonalRightThreeInARow extends AttributeImpl {
 	@Override
 	public AttributeValue getExampleAttributeValue(Example e) {
 		int playerToken = e.getResult().currentTurn;
-		int height = e.getBoard().height; // 6
-		int width = e.getBoard().width; // 7
+		//int opponentToken = 3 - playerToken;
 
 		int numTokensCountingFor = 3; // checking for 3 in a row
 
+		int playerCounts = countRightDiagonal(e, playerToken, numTokensCountingFor);
+		//int opponentCounts = countRightDiagonal(e, opponentToken, numTokensCountingFor);
+		
+		if(playerCounts >= numTokensCountingFor){
+			return affirm;
+		} else {
+			return nega;
+		}
+	}
+	
+	public int countRightDiagonal(Example e, int currentToken, int numTokensCountingFor){
+		int height = e.getBoard().height; // 6
+		int width = e.getBoard().width; // 7
+		
 		int countOfTokensEncounteredDiagonallyRight = 0; // counter
+		int countOfCurrentPlayersNInARow = 0;
 
 		// bottom index is (5, 0)
 		for (int i = height - 1; i > -1; i--) {
 			for (int j = 0; j < width; j++) {
-				if (e.getBoard().boardArray[i][j] == playerToken) { // current
+				if (e.getBoard().boardArray[i][j] == currentToken) { // current
 																	// player's
 																	// tokens
 					for (int k = i, l = j; k > -1; k--, l++) {
@@ -49,13 +63,13 @@ public class IsDiagonalRightThreeInARow extends AttributeImpl {
 						}
 					}
 				}
+				if(countOfTokensEncounteredDiagonallyRight >= numTokensCountingFor){
+					countOfCurrentPlayersNInARow++;
+					countOfTokensEncounteredDiagonallyRight = 0;
+				}
 			}
 		}
 
-		if ((countOfTokensEncounteredDiagonallyRight >= numTokensCountingFor)) {
-			return affirm;
-		} else {
-			return nega;
-		}
+		return countOfCurrentPlayersNInARow;
 	}
 }
