@@ -27,7 +27,7 @@ public class IsVerticalThreeInARow extends AttributeImpl {
 		int height = e.getBoard().height; // 6
 		int width = e.getBoard().width; // 7
 
-		int numTokensCountingFor = 3; // checking for 3 in a row
+		int numTokensCountingFor = 2; // checking for 2 in a row
 
 		int countOfTokensEncounteredVertically = 0; // counter
 

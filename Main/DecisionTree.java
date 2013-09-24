@@ -10,12 +10,7 @@ import util.FileReader;
 import util.Result;
 import AttributeValues.AttributeValue;
 import Attributes.Attribute;
-import Attributes.IsDiagonalLeftThreeInARow;
-import Attributes.IsDiagonalRightThreeInARow;
-import Attributes.IsHorizontalThreeInARow;
-import Attributes.IsHorizontalUnboundedThreeInARow;
 import Attributes.IsVerticalThreeInARow;
-import Attributes.IsVerticalUnboundedThreeInARow;
 
 /*******************************************************************************
  * This files was developed for CS4341: Artificial Intelligence. The course was
@@ -109,16 +104,12 @@ public class DecisionTree {
 			double maxAttributeValue = 0.0;
 			for (Attribute a : attributes) {
 				double importanceValue = a.getImportance(examples);
-				System.out.println(examples);
-				System.out.println("importance: " + importanceValue);
-				System.out.println("attribute: " + a);
 				if (importanceValue >= maxAttributeValue) {
 					mostImportantAttribute = a;
 					maxAttributeValue = importanceValue;
 				}
 			}
 
-			System.out.println(mostImportantAttribute);
 			DecisionTreeNode root = new DecisionTreeNode(mostImportantAttribute);
 			for (AttributeValue aValue : mostImportantAttribute
 					.getAttributeValues()) {
@@ -187,12 +178,12 @@ public class DecisionTree {
 		List<Attribute> attributeList = new ArrayList<Attribute>();
 
 		// attributeList.add(new IsWinner());
-		attributeList.add(new IsVerticalUnboundedThreeInARow());
-		//attributeList.add(new IsVerticalThreeInARow());
-		attributeList.add(new IsHorizontalUnboundedThreeInARow());
-		//attributeList.add(new IsHorizontalThreeInARow());
-		attributeList.add(new IsDiagonalLeftThreeInARow());
-		attributeList.add(new IsDiagonalRightThreeInARow());
+		// attributeList.add(new IsVerticalUnboundedThreeInARow());
+		attributeList.add(new IsVerticalThreeInARow());
+		// attributeList.add(new IsHorizontalUnboundedThreeInARow());
+		// attributeList.add(new IsHorizontalThreeInARow());
+		// attributeList.add(new IsDiagonalLeftThreeInARow());
+		// attributeList.add(new IsDiagonalRightThreeInARow());
 
 		DecisionTreeNode root = dTree
 				.decisionTreeLearning(dTree.exampleCollection, attributeList,

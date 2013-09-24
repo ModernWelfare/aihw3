@@ -33,8 +33,8 @@ public abstract class AttributeImpl implements Attribute {
 		for (ArrayList<Example> eList : exampleSplit) {
 			double subEntropy = getEntropy(eList);
 			entropyList.add(subEntropy);
-			sizeRatioList.add((double) eList.size()
-					/ (double) exampleCollection.size());
+			sizeRatioList.add(((double) eList.size())
+					/ exampleCollection.size());
 		}
 
 		for (int i = 0; i < aValueList.size(); i++) {

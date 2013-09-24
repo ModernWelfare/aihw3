@@ -12,7 +12,7 @@ public class IsVerticalUnboundedThreeInARow extends AttributeImpl {
 
 	private final AttributeValue affirm = new Affirmative();
 	private final AttributeValue nega = new Negative();
-	
+
 	private boolean unbound = false;
 
 	@Override
@@ -36,19 +36,19 @@ public class IsVerticalUnboundedThreeInARow extends AttributeImpl {
 		// bottom index is (5, 0)
 		for (int i = height - 1; i > -1; i--) {
 			for (int j = 0; j < width; j++) {
-				if (e.getBoard().boardArray[i][j] == playerToken) { // current
-																	// player's
-																	// tokens
+				if (e.getBoard().boardArray[i][j] == playerToken) {
+					// current player's tokens
 					for (int k = i; k > -1; k--) {
 						if (e.getBoard().boardArray[i][j] == e.getBoard().boardArray[k][j]) {
 							countOfTokensEncounteredVertically++;
-						} else { 
-							if(e.getBoard().boardArray[k][j] == 0){ //top of the connection of 3 tokens is empty
+						} else {
+							if (e.getBoard().boardArray[k][j] == 0) {
+								// top of the connection of 3 tokens is empty
 								unbound = true;
 							} else {
 								// since the continuity between tokens is
 								// broken, stop
-							break;
+								break;
 							}
 						}
 					}
@@ -56,7 +56,8 @@ public class IsVerticalUnboundedThreeInARow extends AttributeImpl {
 			}
 		}
 
-		if ((countOfTokensEncounteredVertically >= numTokensCountingFor) && (unbound)) {
+		if ((countOfTokensEncounteredVertically >= numTokensCountingFor)
+				&& (unbound)) {
 			return affirm;
 		} else {
 			return nega;
