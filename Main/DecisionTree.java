@@ -200,7 +200,7 @@ public class DecisionTree {
 		return outComes;
 	}
 
-	private double getPrecentage(int[] outComes, List<Example> validationSet) {
+	private double getPercentage(int[] outComes, List<Example> validationSet) {
 		double correctCount = 0;
 		double incorrectCount = 0;
 
@@ -230,9 +230,9 @@ public class DecisionTree {
 		attributeList.add(new IsHorizontalUnboundedThreeInARowWithOpponent());
 		attributeList.add(new IsVerticalUnboundedThreeInARow());
 		attributeList.add(new IsHorizontalUnboundedTwoInARowWithOpponent());
-		attributeList.add(new IsDominatingCenterOfBoard());
+		//attributeList.add(new IsDominatingCenterOfBoard());
 		attributeList.add(new IsDiagonalLeftThreeInARow());
-		attributeList.add(new IsDiagonalRightThreeInARow());
+		//attributeList.add(new IsDiagonalRightThreeInARow());
 		attributeList.add(new IsPlayerOneMoveFirst());
 
 		trainingSet = dTree.getTrainingSet();
@@ -243,7 +243,7 @@ public class DecisionTree {
 
 		int[] outcomes = dTree.getOutComes(root, validationSet);
 
-		double percentage = dTree.getPrecentage(outcomes, validationSet);
+		double percentage = dTree.getPercentage(outcomes, validationSet);
 
 		root.printTree();
 
