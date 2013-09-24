@@ -12,7 +12,6 @@ import AttributeValues.AttributeValue;
 import Attributes.Attribute;
 import Attributes.IsDiagonalLeftThreeInARow;
 import Attributes.IsDiagonalRightThreeInARow;
-import Attributes.IsDominatingCenterOfBoard;
 import Attributes.IsHorizontalUnboundedThreeInARowWithOpponent;
 import Attributes.IsHorizontalUnboundedTwoInARowWithOpponent;
 import Attributes.IsPlayerOneMoveFirst;
@@ -176,17 +175,21 @@ public class DecisionTree {
 		return allSame;
 	}
 
-	private List<Example> getTrainingSet() {
+	private List<Example> getTrainingSet(int slot) {
 		List<Example> trainingSet = new ArrayList<Example>();
-		for (int i = 0; i < 60; i++) {
+		int begin = slot * 20;
+		int end = begin + 20;
+		for (int i = 0; i < begin || i >= end; i++) {
 			trainingSet.add(exampleCollection.get(i));
 		}
 		return trainingSet;
 	}
 
-	private List<Example> getValidationSet() {
+	private List<Example> getValidationSet(int slot) {
 		List<Example> validationSet = new ArrayList<Example>();
-		for (int i = 60; i < 80; i++) {
+		int begin = slot * 20;
+		int end = begin + 20;
+		for (int i = begin; i < end; i++) {
 			validationSet.add(exampleCollection.get(i));
 		}
 		return validationSet;
@@ -200,7 +203,7 @@ public class DecisionTree {
 		return outComes;
 	}
 
-	private double getPrecentage(int[] outComes, List<Example> validationSet) {
+	private double getPercentage(int[] outComes, List<Example> validationSet) {
 		double correctCount = 0;
 		double incorrectCount = 0;
 
@@ -214,36 +217,55 @@ public class DecisionTree {
 		return correctCount / (incorrectCount + correctCount) * 100;
 	}
 
+	private double getCrossValidationPercentage(List<Attribute> attributeList) {
+		List<Example> trainingSet;
+		List<Example> validationSet;
+		DecisionTreeNode root;
+		int[] outcomes;
+		double percentage;
+		double totalPercentage = 0;
+
+		for (int i = 0; i < 4; i++) {
+			trainingSet = getTrainingSet(i);
+			validationSet = getValidationSet(i);
+			root = decisionTreeLearning(trainingSet, attributeList, trainingSet);
+			outcomes = getOutComes(root, validationSet);
+			percentage = getPercentage(outcomes, validationSet);
+			totalPercentage += percentage;
+		}
+		return totalPercentage / 4;
+	}
+
 	/**
 	 * Main function to run the program and to generate predictions
 	 * 
 	 */
 	public static void main(String[] args) {
 		DecisionTree dTree = new DecisionTree();
-
+		List<Example> trainingSet;
+		List<Example> validationSet;
 		dTree.setup();
+		int index = 3;
 
 		List<Attribute> attributeList = new ArrayList<Attribute>();
-		List<Example> trainingSet = new ArrayList<Example>();
-		List<Example> validationSet = new ArrayList<Example>();
 
 		attributeList.add(new IsHorizontalUnboundedThreeInARowWithOpponent());
 		attributeList.add(new IsVerticalUnboundedThreeInARow());
 		attributeList.add(new IsHorizontalUnboundedTwoInARowWithOpponent());
-		attributeList.add(new IsDominatingCenterOfBoard());
+		// attributeList.add(new IsDominatingCenterOfBoard());
 		attributeList.add(new IsDiagonalLeftThreeInARow());
 		attributeList.add(new IsDiagonalRightThreeInARow());
 		attributeList.add(new IsPlayerOneMoveFirst());
 
-		trainingSet = dTree.getTrainingSet();
-		validationSet = dTree.getValidationSet();
+		trainingSet = dTree.getTrainingSet(index);
+		validationSet = dTree.getValidationSet(index);
 
 		DecisionTreeNode root = dTree.decisionTreeLearning(trainingSet,
 				attributeList, trainingSet);
 
 		int[] outcomes = dTree.getOutComes(root, validationSet);
 
-		double percentage = dTree.getPrecentage(outcomes, validationSet);
+		double percentage = dTree.getPercentage(outcomes, validationSet);
 
 		root.printTree();
 
@@ -255,6 +277,7 @@ public class DecisionTree {
 		}
 
 		System.out.println(percentage);
+		System.out.println(dTree.getCrossValidationPercentage(attributeList));
 
 	}
 }
