@@ -54,6 +54,7 @@ public class DecisionTreeNode {
 				}
 			}
 		}
+		// return -1 if the process failed
 		return -1;
 	}
 
