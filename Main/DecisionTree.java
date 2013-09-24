@@ -178,9 +178,14 @@ public class DecisionTree {
 		List<Example> trainingSet = new ArrayList<Example>();
 		int begin = slot * 20;
 		int end = begin + 20;
-		for (int i = 0; i < begin || i >= end; i++) {
+		for (int i = 0; i < begin; i++) {
 			trainingSet.add(exampleCollection.get(i));
 		}
+
+		for (int i = end; i < 80; i++) {
+			trainingSet.add(exampleCollection.get(i));
+		}
+
 		return trainingSet;
 	}
 
@@ -244,7 +249,7 @@ public class DecisionTree {
 		List<Example> trainingSet;
 		List<Example> validationSet;
 		dTree.setup();
-		int index = 3;
+		int index = 0;
 
 		List<Attribute> attributeList = new ArrayList<Attribute>();
 

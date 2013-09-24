@@ -58,7 +58,7 @@ public class DecisionTreeNode {
 	}
 
 	public void printTree() {
-		System.out.println(outcome);
+		System.out.println(rootAttribute);
 		if (!children.isEmpty()) {
 			for (DecisionTreeNode child : children) {
 				child.printTree();
