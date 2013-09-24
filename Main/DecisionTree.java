@@ -10,7 +10,13 @@ import util.FileReader;
 import util.Result;
 import AttributeValues.AttributeValue;
 import Attributes.Attribute;
-import Attributes.IsVerticalThreeInARow;
+import Attributes.IsDiagonalLeftThreeInARow;
+import Attributes.IsDiagonalRightThreeInARow;
+import Attributes.IsDominatingCenterOfBoard;
+import Attributes.IsHorizontalUnboundedThreeInARowWithOpponent;
+import Attributes.IsHorizontalUnboundedTwoInARowWithOpponent;
+import Attributes.IsPlayerOneMoveFirst;
+import Attributes.IsVerticalUnboundedThreeInARow;
 
 /*******************************************************************************
  * This files was developed for CS4341: Artificial Intelligence. The course was
@@ -110,6 +116,10 @@ public class DecisionTree {
 				}
 			}
 
+			if (maxAttributeValue == 0) {
+				return new DecisionTreeNode(pluralityValue(examples));
+			}
+
 			DecisionTreeNode root = new DecisionTreeNode(mostImportantAttribute);
 			for (AttributeValue aValue : mostImportantAttribute
 					.getAttributeValues()) {
@@ -166,6 +176,44 @@ public class DecisionTree {
 		return allSame;
 	}
 
+	private List<Example> getTrainingSet() {
+		List<Example> trainingSet = new ArrayList<Example>();
+		for (int i = 0; i < 60; i++) {
+			trainingSet.add(exampleCollection.get(i));
+		}
+		return trainingSet;
+	}
+
+	private List<Example> getValidationSet() {
+		List<Example> validationSet = new ArrayList<Example>();
+		for (int i = 60; i < 80; i++) {
+			validationSet.add(exampleCollection.get(i));
+		}
+		return validationSet;
+	}
+
+	private int[] getOutComes(DecisionTreeNode root, List<Example> validationSet) {
+		int[] outComes = new int[20];
+		for (int i = 0; i < 20; i++) {
+			outComes[i] = root.predictOutcome(validationSet.get(i));
+		}
+		return outComes;
+	}
+
+	private double getPrecentage(int[] outComes, List<Example> validationSet) {
+		double correctCount = 0;
+		double incorrectCount = 0;
+
+		for (int i = 0; i < 20; i++) {
+			if (outComes[i] == validationSet.get(i).getWinner()) {
+				correctCount++;
+			} else {
+				incorrectCount++;
+			}
+		}
+		return correctCount / (incorrectCount + correctCount) * 100;
+	}
+
 	/**
 	 * Main function to run the program and to generate predictions
 	 * 
@@ -176,20 +224,37 @@ public class DecisionTree {
 		dTree.setup();
 
 		List<Attribute> attributeList = new ArrayList<Attribute>();
+		List<Example> trainingSet = new ArrayList<Example>();
+		List<Example> validationSet = new ArrayList<Example>();
 
-		// attributeList.add(new IsWinner());
-		// attributeList.add(new IsVerticalUnboundedThreeInARow());
-		attributeList.add(new IsVerticalThreeInARow());
-		// attributeList.add(new IsHorizontalUnboundedThreeInARow());
-		// attributeList.add(new IsHorizontalThreeInARow());
-		// attributeList.add(new IsDiagonalLeftThreeInARow());
-		// attributeList.add(new IsDiagonalRightThreeInARow());
+		attributeList.add(new IsHorizontalUnboundedThreeInARowWithOpponent());
+		attributeList.add(new IsVerticalUnboundedThreeInARow());
+		attributeList.add(new IsHorizontalUnboundedTwoInARowWithOpponent());
+		attributeList.add(new IsDominatingCenterOfBoard());
+		attributeList.add(new IsDiagonalLeftThreeInARow());
+		attributeList.add(new IsDiagonalRightThreeInARow());
+		attributeList.add(new IsPlayerOneMoveFirst());
 
-		DecisionTreeNode root = dTree
-				.decisionTreeLearning(dTree.exampleCollection, attributeList,
-						dTree.exampleCollection);
+		trainingSet = dTree.getTrainingSet();
+		validationSet = dTree.getValidationSet();
+
+		DecisionTreeNode root = dTree.decisionTreeLearning(trainingSet,
+				attributeList, trainingSet);
+
+		int[] outcomes = dTree.getOutComes(root, validationSet);
+
+		double percentage = dTree.getPrecentage(outcomes, validationSet);
 
 		root.printTree();
+
+		System.out.println("-------------");
+
+		for (int i = 0; i < 20; i++) {
+			System.out.println((i + 61) + " : "
+					+ root.predictOutcome(validationSet.get(i)));
+		}
+
+		System.out.println(percentage);
 
 	}
 }

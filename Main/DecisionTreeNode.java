@@ -3,9 +3,16 @@ package Main;
 import java.util.ArrayList;
 import java.util.List;
 
+import util.Example;
 import AttributeValues.AttributeValue;
 import Attributes.Attribute;
 
+/**
+ * Class for the nodes inside the decision tree
+ * 
+ * @author bli tnarayan
+ * 
+ */
 public class DecisionTreeNode {
 	public AttributeValue aValue;
 	public Attribute rootAttribute;
@@ -36,9 +43,22 @@ public class DecisionTreeNode {
 		this.aValue = aValue;
 	}
 
+	public int predictOutcome(Example e) {
+		if (outcome != 0) {
+			return outcome;
+		} else {
+			for (DecisionTreeNode child : children) {
+				if (child.aValue.equals(rootAttribute
+						.getExampleAttributeValue(e))) {
+					return child.predictOutcome(e);
+				}
+			}
+		}
+		return -1;
+	}
+
 	public void printTree() {
 		System.out.println(outcome);
-
 		if (!children.isEmpty()) {
 			for (DecisionTreeNode child : children) {
 				child.printTree();

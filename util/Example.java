@@ -18,6 +18,10 @@ public class Example {
 	}
 
 	public int getWinner() {
-		return this.result.winner;
+		return result.winner;
+	}
+
+	public int getFirstMover() {
+		return result.currentTurn;
 	}
 }
