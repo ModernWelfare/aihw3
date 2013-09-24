@@ -8,6 +8,12 @@ import AttributeValues.Affirmative;
 import AttributeValues.AttributeValue;
 import AttributeValues.Negative;
 
+/**
+ * Attribute for checking the center of mass of the board
+ * 
+ * @author bli tnarayan
+ * 
+ */
 public class IsDominatingCenterOfBoard extends AttributeImpl {
 
 	private final AttributeValue affirm = new Affirmative();

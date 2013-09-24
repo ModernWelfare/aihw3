@@ -8,6 +8,13 @@ import AttributeValues.Affirmative;
 import AttributeValues.AttributeValue;
 import AttributeValues.Negative;
 
+/**
+ * Attribute for checking horizontal 3 in a row connection where the ends are unbounded.
+ * Also takes into account the same feature for the opponent, and checks the difference.
+ * 
+ * @author bli tnarayan
+ * 
+ */
 public class IsHorizontalUnboundedThreeInARowWithOpponent extends AttributeImpl {
 
 	private final AttributeValue affirm = new Affirmative();

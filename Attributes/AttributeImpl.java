@@ -6,6 +6,14 @@ import java.util.List;
 import util.Example;
 import AttributeValues.AttributeValue;
 
+/**
+ * Abstract class that has functions for calculating importance
+ * and information difference/entropy for each attribute
+ *   
+ * @author bli tnarayan
+ * 
+ */
+
 public abstract class AttributeImpl implements Attribute {
 	@Override
 	public double getImportance(List<Example> exampleCollection) {

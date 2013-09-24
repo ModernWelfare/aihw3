@@ -8,6 +8,12 @@ import AttributeValues.Affirmative;
 import AttributeValues.AttributeValue;
 import AttributeValues.Negative;
 
+/**
+ * Attribute for checking if the current player is the winner
+ * 
+ * @author bli tnarayan
+ * 
+ */
 public class IsWinner implements Attribute {
 
 	private final AttributeValue affirm = new Affirmative();
