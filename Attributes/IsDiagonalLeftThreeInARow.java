@@ -8,6 +8,12 @@ import AttributeValues.Affirmative;
 import AttributeValues.AttributeValue;
 import AttributeValues.Negative;
 
+/**
+ * Attribute for checking the left diagonal
+ * 
+ * @author bli tnarayan
+ * 
+ */
 public class IsDiagonalLeftThreeInARow extends AttributeImpl {
 
 	private final AttributeValue affirm = new Affirmative();

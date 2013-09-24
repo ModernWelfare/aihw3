@@ -11,7 +11,6 @@ import util.Result;
 import AttributeValues.AttributeValue;
 import Attributes.Attribute;
 import Attributes.IsDiagonalLeftThreeInARow;
-import Attributes.IsDiagonalRightThreeInARow;
 import Attributes.IsHorizontalUnboundedThreeInARowWithOpponent;
 import Attributes.IsHorizontalUnboundedTwoInARowWithOpponent;
 import Attributes.IsPlayerOneMoveFirst;
@@ -254,7 +253,7 @@ public class DecisionTree {
 		attributeList.add(new IsHorizontalUnboundedTwoInARowWithOpponent());
 		// attributeList.add(new IsDominatingCenterOfBoard());
 		attributeList.add(new IsDiagonalLeftThreeInARow());
-		attributeList.add(new IsDiagonalRightThreeInARow());
+		// attributeList.add(new IsDiagonalRightThreeInARow());
 		attributeList.add(new IsPlayerOneMoveFirst());
 
 		trainingSet = dTree.getTrainingSet(index);

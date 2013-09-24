@@ -8,6 +8,12 @@ import AttributeValues.Affirmative;
 import AttributeValues.AttributeValue;
 import AttributeValues.Negative;
 
+/**
+ * Attribute for checking horizontal 3 in a row connection where the ends are unbounded
+ * 
+ * @author bli tnarayan
+ * 
+ */
 public class IsHorizontalUnboundedThreeInARow extends AttributeImpl {
 
 	private final AttributeValue affirm = new Affirmative();
