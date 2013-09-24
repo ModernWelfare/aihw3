@@ -1,0 +1,16 @@
+Team: Bohao Li (bli), Tushar Narayan (tnarayan)
+
+The attributes we used are:
+IsHorizontalUnboundedThreeInARowWithOpponent()
+	This attribute checks for a connection of 3 tokens in a row horizontally for the current player. Once a connection of 3 is 
+	obtained, it then checks both the ends of that connection to see if the ends are open spaces. If they are, it increases the 
+	counter of the number of 3 in a row unbounded connections for the player.
+	It then carries out the same operation for the opponent.
+	It then checks to see if the number of unbounded 3 in a row connections for the current player is greater than or equal to 
+	the number of unbounded 3 in a row connections for the opponent. If yes, it returns an affirmative value; else, it returns 
+	a negative value.
+
+IsVerticalUnboundedThreeInARow()
+IsHorizontalUnboundedTwoInARowWithOpponent()
+IsDiagonalLeftThreeInARow()
+IsPlayerOneMoveFirst()
