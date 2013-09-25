@@ -10,6 +10,7 @@ package util;
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
 
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
@@ -32,5 +33,18 @@ public class FileReader {
 	public List<String> readCSVFile(String filePath) throws IOException {
 		Path path = Paths.get(filePath);
 		return Files.readAllLines(path, ENCODING);
+	}
+
+	public void writeCSVFile(String filePath, int[] outcomes)
+			throws IOException {
+		FileWriter writer = new FileWriter(filePath);
+		for (int i = 0; i < 20; i++) {
+			writer.append(Integer.toString(i + 81));
+			writer.append(",");
+			writer.append(Integer.toString(outcomes[i]));
+			writer.append("\n");
+		}
+		writer.flush();
+		writer.close();
 	}
 }

@@ -25,7 +25,11 @@ public class Result {
 		String[] resultArrs = resultString.split(",");
 		this.gameNumber = Integer.parseInt(resultArrs[0]);
 		this.currentTurn = Integer.parseInt(resultArrs[1]);
-		this.winner = Integer.parseInt(resultArrs[2]);
+		if (resultArrs.length > 2) {
+			this.winner = Integer.parseInt(resultArrs[2]);
+		} else {
+			this.winner = 0;
+		}
 	}
 
 	public void printResult() {

@@ -37,6 +37,7 @@ public class DecisionTree {
 	private List<Board> boardCollection;
 	private List<Result> resultCollection;
 	private List<Example> exampleCollection;
+	private List<Example> submissionExamples;
 	// file directory to store the board csv files and the result csv files,
 	// expect to change
 	private final String DIRECTORY = "test_dataset/";
@@ -54,6 +55,11 @@ public class DecisionTree {
 		boardCollection = new ArrayList<Board>();
 		resultCollection = new ArrayList<Result>();
 		exampleCollection = new ArrayList<Example>();
+		submissionExamples = new ArrayList<Example>();
+
+		List<Result> sbumissionResults = new ArrayList<Result>();
+		List<Board> submissionBoards = new ArrayList<Board>();
+
 		String filePath;
 
 		// get the board information and store them in the board list
@@ -79,10 +85,35 @@ public class DecisionTree {
 			e.printStackTrace();
 		}
 
+		filePath = "C:/AIproj3/test.csv";
+		try {
+			bufferList = fr.readCSVFile(filePath);
+			for (String resultString : bufferList) {
+				sbumissionResults.add(new Result(resultString));
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		for (int i = 81; i < 101; i++) {
+			filePath = "C:/AIproj3/" + i + ".csv";
+			try {
+				bufferList = fr.readCSVFile(filePath);
+				submissionBoards.add(new Board(bufferList));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
 		// map the boards to their results
 		for (int i = 0; i < 80; i++) {
 			exampleCollection.add(new Example(boardCollection.get(i),
 					resultCollection.get(i)));
+		}
+
+		for (int i = 0; i < 20; i++) {
+			submissionExamples.add(new Example(submissionBoards.get(i),
+					sbumissionResults.get(i)));
 		}
 	}
 
@@ -240,16 +271,23 @@ public class DecisionTree {
 		return totalPercentage / 4;
 	}
 
+	private void printResultToCSV(int[] outcomes) {
+		FileReader fr = FileReader.getInstance();
+		try {
+			fr.writeCSVFile("C:/AIproj3/bli_tnarayan_project3.csv", outcomes);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
 	/**
 	 * Main function to run the program and to generate predictions
 	 * 
 	 */
 	public static void main(String[] args) {
 		DecisionTree dTree = new DecisionTree();
-		List<Example> trainingSet;
-		List<Example> validationSet;
 		dTree.setup();
-		int index = 0;
 
 		List<Attribute> attributeList = new ArrayList<Attribute>();
 
@@ -261,27 +299,14 @@ public class DecisionTree {
 		// attributeList.add(new IsDiagonalRightThreeInARow());
 		attributeList.add(new IsPlayerOneMoveFirst());
 
-		trainingSet = dTree.getTrainingSet(index);
-		validationSet = dTree.getValidationSet(index);
+		DecisionTreeNode root = dTree
+				.decisionTreeLearning(dTree.exampleCollection, attributeList,
+						dTree.exampleCollection);
 
-		DecisionTreeNode root = dTree.decisionTreeLearning(trainingSet,
-				attributeList, trainingSet);
+		int[] outcomes = dTree.getOutComes(root, dTree.submissionExamples);
 
-		int[] outcomes = dTree.getOutComes(root, validationSet);
+		dTree.printResultToCSV(outcomes);
 
-		double percentage = dTree.getPercentage(outcomes, validationSet);
-
-		root.printTree();
-
-		System.out.println("-------------");
-
-		for (int i = 0; i < 20; i++) {
-			System.out.println((i + 61) + " : "
-					+ root.predictOutcome(validationSet.get(i)));
-		}
-
-		System.out.println(percentage);
-		System.out.println(dTree.getCrossValidationPercentage(attributeList));
-
+		dTree.getCrossValidationPercentage(attributeList);
 	}
 }
