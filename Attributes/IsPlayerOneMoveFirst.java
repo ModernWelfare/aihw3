@@ -8,6 +8,12 @@ import AttributeValues.Affirmative;
 import AttributeValues.AttributeValue;
 import AttributeValues.Negative;
 
+/**
+ * Attribute for checking if the current player in the state is player 1
+ * 
+ * @author Li Bohao
+ * 
+ */
 public class IsPlayerOneMoveFirst extends AttributeImpl {
 
 	private final AttributeValue affirm = new Affirmative();

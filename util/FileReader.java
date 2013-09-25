@@ -19,6 +19,12 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
+/**
+ * Class for implementing all operations involving file i/o
+ * 
+ * @author bli tnarayan
+ * 
+ */
 public class FileReader {
 	private static FileReader filereaderInstance = null;
 	final static Charset ENCODING = StandardCharsets.UTF_8;

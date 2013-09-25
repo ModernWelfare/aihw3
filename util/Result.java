@@ -10,6 +10,13 @@ package util;
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
 
+/**
+ * Class for implementing the result, a set of data read from a separate csv
+ * file which contains information as to who moves first and who wins the game
+ * 
+ * @author bli tnarayan
+ * 
+ */
 public class Result {
 	public int gameNumber;
 	public int currentTurn;

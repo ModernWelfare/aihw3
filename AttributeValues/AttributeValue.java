@@ -7,5 +7,12 @@ package AttributeValues;
  * 
  */
 public interface AttributeValue {
+
+	/**
+	 * Checks if two attributes are equal to one another
+	 * 
+	 * @param a
+	 * @return
+	 */
 	public boolean equals(AttributeValue a);
 }

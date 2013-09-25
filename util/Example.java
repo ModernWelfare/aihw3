@@ -1,5 +1,11 @@
 package util;
 
+/**
+ * Class for implementing an example in the training set
+ * 
+ * @author Li Bohao
+ * 
+ */
 public class Example {
 	private final Board board;
 	private final Result result;

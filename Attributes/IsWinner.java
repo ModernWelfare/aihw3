@@ -9,7 +9,8 @@ import AttributeValues.AttributeValue;
 import AttributeValues.Negative;
 
 /**
- * Attribute for checking if the current player is the winner
+ * Attribute for checking if the current player is the winner A useless
+ * attribute
  * 
  * @author bli tnarayan
  * 

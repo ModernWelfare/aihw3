@@ -29,6 +29,9 @@ import Attributes.IsVerticalUnboundedThreeInARow;
 /**
  * Main class for project implementation
  * 
+ * This is the class that implements the making of a decision tree based on the
+ * set of training data
+ * 
  * @author bli tnarayan
  * 
  */

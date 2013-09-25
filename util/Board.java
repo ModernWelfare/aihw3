@@ -13,6 +13,12 @@ package util;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Class for the connect 4 board implementation
+ * 
+ * @author Li Bohao
+ * 
+ */
 public class Board {
 	public final int boardArray[][];
 	public final int height;
